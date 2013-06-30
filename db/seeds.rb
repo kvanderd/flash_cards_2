@@ -1,3 +1,5 @@
+require 'csv'
+
 def import_deck(file)
   deck_array = []
   File.open(file, 'r').each_line do |line|
@@ -19,3 +21,8 @@ end
 
 
 import_deck('ruby_terms.txt')
+
+
+CSV.foreach("States.csv", headers: true) do |row|
+  states_capitals.cards << Card.create(question: "What is the capital of " + row.field('name') + "?", answer: row.field('capital'))
+end
