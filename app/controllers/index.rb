@@ -12,6 +12,11 @@ post "/profile" do
   end
 end
 
+post "/login" do
+	@user = User.find_by_login(params[:user][:login])
+	login(params[:user])
+end
+
 get "/user/:id" do
   @user = User.find(params[:id])
   @decks = Deck.all
@@ -28,10 +33,6 @@ post "/deck/:deck_id/card/:card_id" do
 	content_type :json
 	@card = Card.find_by_id(params[:card_id])
 	guess = Guess.create( {card_id: params[:card_id], round_id: session[:round_id] })
-
-	p "*"*50
-	p params[:user_guess]
-	p "*"*50
 	if @card.answer.downcase == params[:user_guess].downcase
 		guess.correct = true
 	end

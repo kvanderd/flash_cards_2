@@ -1,6 +1,5 @@
 $(document).ready(function() {
 	$('.game_form').on('submit', function(e){
-		$('.game_form').hide();
 		e.preventDefault(); 
 		var route = $(this).attr('action');
 		// console.log($(this));
